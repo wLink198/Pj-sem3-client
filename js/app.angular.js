@@ -23,7 +23,7 @@ app.config(function($routeProvider) {
             templateUrl : "pages/support.html"
         })
         .when("/login", {
-            templateUrl : "pages/register.html",
+            templateUrl : "pages/login.html",
             controller: "loginCtrl"
         })
         .when("/register", {
