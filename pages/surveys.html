@@ -1,0 +1,34 @@
+<div class="survey-parallax"></div>
+
+<div class="index-content">
+    <h4 class="survey-title">Surveys</h4>
+    <div class="container">
+        <div class="card-deck">
+            <div class="card mt-5" ng-repeat="s in surveys" style="min-width: 25%">
+                <img class="card-img-top" src="{{s.image}}" alt="Card image cap">
+                <div class="card-body" style="position: relative">
+                    <h5 class="card-title">{{s.title}}</h5>
+                    <p class="card-text">{{s.description}}</p><br><br>
+                    <button type="button" class="btn btn-primary" style="position: absolute; bottom: 20px; right: 25px">
+                        <a style="color: white" href="#">Participate &raquo;</a>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- paginate -->
+        <nav style="margin-bottom: 200px" aria-label="...">
+            <ul class="pagination myPaginate mt-5">
+                <li ng-class="page==1?'page-item disabled':'page-item'">
+                    <a class="page-link" href="#!survey?page={{page-1}}" tabindex="-1">Previous</a>
+                </li>
+                <li ng-repeat="i in is" ng-class="page==i?'page-item active':'page-item'">
+                    <a class="page-link" href="#!survey?page={{i}}">{{i}} <span ng-if="page==1" class="sr-only">(current)</span></a>
+                </li>
+                <li ng-class="page==totalPage?'page-item disabled':'page-item'">
+                    <a class="page-link" href="#!survey?page={{page+1}}">Next</a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</div>

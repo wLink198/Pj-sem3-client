@@ -1,0 +1,26 @@
+<nav class="myNav">
+	<div class="row">
+		<div class="col-8 col-xl-2 offset-2 home-page"><a style="text-decoration: none; color: #263238" href="#!">Home Page</a></div>
+		<div class="col-7 offset-1 col-xl-5 offset-xl-0">
+			<ul class="menu">
+				<li class="survey-board-menu">
+					<a href="#">Survey Board</a>
+					<ul>
+						<li><a href="#!survey">Surveys</a></li>
+						<li><a href="#!competition">Competitions</a></li>
+					</ul>
+				</li>
+				<li><a href="#!support">Support</a></li>
+				<li><a href="#!faq">FAQs</a></li>
+			</ul>
+		</div>
+		<div ng-if="!cusername && !susername || !ctoken && !stoken" class="col-3 col-xl-2 offset-1">
+			<a style="color: black" href="#!login">Login</a>
+			<span>/</span>
+			<a style="color: black" href="#!register">Register</a>
+		</div>
+		<div ng-if="cusername && ctoken || susername && stoken" class="col-4 col-xl-3">
+			<span>Hello, {{cusername?cusername:susername}} / <a ng-click="logout()" style="color: black" href="">Logout</a></span>
+		</div>
+	</div>
+</nav>

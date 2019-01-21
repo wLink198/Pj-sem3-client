@@ -1,0 +1,13 @@
+.competition-parallax {
+    /* The image used */
+    background-image: url("../images/Quotefancy-1830245-3840x2160.jpg");
+
+    /* Set a specific height */
+    min-height: 350px;
+
+    /* Create the parallax scrolling effect */
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}

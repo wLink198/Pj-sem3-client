@@ -1,0 +1,43 @@
+<div class="parallax"></div>
+
+<div class="index-content">
+	<!-- surveys -->
+	<h4 class="survey-title">Surveys</h4>
+	<div class="container">
+		<div class="card-deck">
+		  <div class="card mt-5" ng-repeat="s in surveys" style="min-width: 25%">
+		    <img class="card-img-top" src="{{s.image}}" alt="Card image cap">
+		    <div class="card-body" style="position: relative">
+		      <h5 class="card-title">{{s.title}}</h5>
+		      <p class="card-text">{{s.description}}</p><br><br>
+				<button type="button" class="btn btn-primary" style="position: absolute; bottom: 20px; right: 25px">
+					<a style="color: white" href="#">Participate &raquo;</a>
+				</button>
+		    </div>
+		  </div>
+		</div>	
+	</div>
+
+	<!-- competitions -->
+	<h4 class="competitions-title mt-5">Competitions</h4>
+	<div class="container">
+		<div class="card-deck">
+		  <div class="card mt-5" ng-repeat="c in competitions" style="min-width: 25%">
+		    <img class="card-img-top" src="{{c.image}}" alt="Card image cap">
+		    <div class="card-body">
+		      <h5 class="card-title">{{c.title}}</h5>
+		      <p class="card-text">{{c.description}}</p>
+		      <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+		    </div>
+		  </div>
+		</div>	
+	</div>
+
+	<!-- statistics -->
+	<div class="statistics">
+		<div class="stat-content">
+			<h4>Total surveys took place till date: <span style="color: grey">0</span></h4>
+			<h4>Total surveys you have participated: <span style="color: grey">0</span></h4>
+		</div>
+	</div>
+</div>

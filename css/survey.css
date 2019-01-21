@@ -1,0 +1,13 @@
+.survey-parallax {
+    /* The image used */
+    background-image: url("../images/online-survey-ss-1920.jpg");
+
+    /* Set a specific height */
+    min-height: 350px;
+
+    /* Create the parallax scrolling effect */
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}

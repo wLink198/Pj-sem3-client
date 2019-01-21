@@ -1,0 +1,100 @@
+<div class="lr-wrap">
+    <div class="lr-container">
+        <form name="lrform" class="lr-form" ng-controller="registerCtrl">
+            <h4>Register</h4>
+            <h5 align="center">Select your occupation:</h5>
+            <div class="custom-control custom-radio col-md-9 offset-3">
+                <input ng-click="member.job='Student'" type="radio" id="customRadio1" name="customRadio" class="custom-control-input">
+                <label class="custom-control-label oLabel" for="customRadio1">Student</label>
+            </div>
+            <div class="custom-control custom-radio col-md-9 offset-3 mb-3">
+                <input ng-click="member.job='Faculty and staff'" type="radio" id="customRadio2" name="customRadio" class="custom-control-input">
+                <label class="custom-control-label oLabel" for="customRadio2">Faculty and staff</label>
+            </div>
+
+            <div ng-if="member.job">
+                <div class="col-md-10 offset-1 wrap-inputLr">
+                    <input name="username" ng-model="member.username" class="inputLr" type="text" placeholder="Username" minlength="6" required>
+                    <span class="focus-inputLr"></span>
+                    <span class="symbol-inputLr">
+                    <span class="lnr lnr-mustache"></span>
+                    </span>
+                    <small class="form-text text-danger" ng-if="lrform.username.$error.minlength">(*) Please use at least 6 characters</small>
+                </div>
+
+                <div class="col-md-10 offset-1 wrap-inputLr">
+                    <input name="password" ng-model="member.password" class="inputLr" type="password" name="password" placeholder="Password" minlength="6" required>
+                    <span class="focus-inputLr"></span>
+                    <span class="symbol-inputLr">
+                    <span class="lnr lnr-lock"></span>
+                    </span>
+                    <small class="form-text text-danger" ng-if="lrform.password.$error.minlength">(*) Please use at least 6 characters</small>
+                </div>
+
+                <div class="col-md-10 offset-1 wrap-inputLr">
+                    <input name="name" ng-model="member.name" class="inputLr tooltips" type="text" placeholder="Name" required>
+                    <span class="focus-inputLr"></span>
+                    <span class="symbol-inputLr">
+                    <span class="lnr lnr-user"></span>
+                    </span>
+                </div>
+
+                <div class="col-md-10 offset-1 wrap-inputLr">
+                    <input ng-model="member.numberID" class="inputLr" type="text" name="numberID" placeholder="{{member.job=='Student'?'Rollnumber':'Employee Number'}}" required>
+                    <span class="focus-inputLr"></span>
+                    <span class="symbol-inputLr">
+                    <span class="lnr {{member.job=='Student'?'lnr lnr-license':'lnr lnr-users'}}"></span>
+                </span>
+                </div>
+
+                <div ng-if="member.job=='Student'" class="col-md-10 offset-1 wrap-inputLr">
+                    <input ng-model="member.class" class="inputLr" type="text" name="class" placeholder="Class" required>
+                    <span class="focus-inputLr"></span>
+                    <span class="symbol-inputLr">
+                    <span class="lnr lnr-graduation-hat"></span>
+                </span>
+                </div>
+
+                <div class="col-md-10 offset-1 wrap-inputLr">
+                    <input ng-model="member.email" class="inputLr" type="email" name="email" placeholder="Email" required>
+                    <span class="focus-inputLr"></span>
+                    <span class="symbol-inputLr">
+                    <span class="lnr lnr-envelope"></span>
+                </span>
+                </div>
+
+                <div class="col-md-10 offset-1 wrap-inputLr">
+                    <input ng-model="member.phone" class="inputLr" type="text" name="phone" placeholder="Phone" required>
+                    <span class="focus-inputLr"></span>
+                    <span class="symbol-inputLr">
+                    <span class="lnr lnr-phone"></span>
+                </span>
+                </div>
+
+                <div ng-if="member.job=='Faculty and staff'" class="col-md-10 offset-1 wrap-inputLr">
+                    <input ng-model="member.seciton" class="inputLr" type="text" name="section" placeholder="Section" required>
+                    <span class="focus-inputLr"></span>
+                    <span class="symbol-inputLr">
+                    <span class="lnr lnr-select"></span>
+                </span>
+                </div>
+
+                <div class="col-md-10 offset-1 wrap-inputLr">
+                    <input ng-model="member.timejoin" class="inputLr" type="text" name="timejoin" placeholder="{{member.job=='Student'?'Admission Date':'Date of Joining'}}" pattern="^[0-9]{4}[\-][0-9]{2}[\-][0-9]{2}$" required>
+                    <span class="focus-inputLr"></span>
+                    <span class="symbol-inputLr">
+                    <span class="lnr lnr-calendar-full"></span>
+                    </span>
+                    <small class="form-text text-danger" ng-if="lrform.timejoin.$error.pattern">(*) Please enter with the format: yyyy-MM-dd</small>
+                </div>
+
+                <div class="col-md-10 offset-1 lr-btn mt-5">
+                    <button ng-click="register()" name="register" type="submit">Register</button>
+                </div>
+            </div>
+
+        </form>
+
+        <div class="noobAsk"><p align="center">Already have an account? <a href="#!login">Sign in</a></p></div>
+    </div>
+</div>
