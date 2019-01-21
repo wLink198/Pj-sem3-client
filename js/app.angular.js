@@ -22,7 +22,7 @@ app.config(function($routeProvider) {
         .when("/support", {
             templateUrl : "pages/support.html"
         })
-        .when("/login", {
+        .when("/lg", {
             templateUrl : "pages/login.html",
             controller: "loginCtrl"
         })
