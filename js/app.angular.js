@@ -42,14 +42,14 @@ app.config(function($routeProvider) {
 
 //index controller
 app.controller("indexCtrl", function ($scope, $location, $http) {
-    // if (!Cookies.get('access-token') && !sessionStorage.accessToken) {
-    //     Swal(
-    //         'Please login!',
-    //         'You need to login to see the page content',
-    //         'warning'
-    //     );
-    //     $location.path('/login')
-    // }
+    if (!Cookies.get('access-token') && !sessionStorage.accessToken) {
+        Swal(
+            'Please login!',
+            'You need to login to see the page content',
+            'warning'
+        );
+        $location.path('/login')
+    }
 
     $http({
         method: 'GET',
