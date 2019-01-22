@@ -16,23 +16,23 @@
                     <div class="col-md-12">
                         <div>
                             <div class="title-input pl-3">
-                                <pre style="color:#00c2a4">{{$index+1}}. {{q.QuestionText.replace("?","?\n")}}</pre>
+                                <pre style="color:#00c2a4">{{$index+1}}. {{q.questionText.replace("A.","\nA.").replace("B.","\nB.").replace("C.","\nC.").replace("D.","\nD.")}}</pre>
                             </div>
                         </div>
                         <div style="background: #fff;" class="box-list col-md-12 p-0">
                             <div class="col-md-12 pt-2 pb-2">
                                 <ul class="list-group list-group-flush">
                                     <li style="border: 0" class="list-group-item">
-                                        <input class="mr-2" type="radio" name="{{q.SurveyId}}" value="A" required>A
+                                        <input class="mr-2" type="radio" name="{{q.id}}" value="A" required>A
                                     </li>
                                     <li style="border: 0" class="list-group-item">
-                                        <input class="mr-2" type="radio" name="{{q.SurveyId}}" value="B">B
+                                        <input class="mr-2" type="radio" name="{{q.id}}" value="B">B
                                     </li>
                                     <li style="border: 0" class="list-group-item">
-                                        <input class="mr-2" type="radio" name="{{q.SurveyId}}" value="C">C
+                                        <input class="mr-2" type="radio" name="{{q.id}}" value="C">C
                                     </li>
                                     <li style="border: 0" class="list-group-item">
-                                        <input class="mr-2" type="radio" name="{{q.SurveyId}}" value="D">D
+                                        <input class="mr-2" type="radio" name="{{q.id}}" value="D">D
                                     </li>
                                 </ul>
                             </div>
