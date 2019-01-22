@@ -31,3 +31,8 @@ body{
     font-size: 16px;
     background: #ff9933;
 }
+
+.faq-answer {
+	background: #fff;
+	padding: 12px 23px;
+}

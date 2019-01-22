@@ -40,12 +40,15 @@
     <div class="row">
         <div class="col-md-12">
             <ul class="list-group list-group-flush">
-                <li ng-repeat="f in faqs" ng-if="!search || search&&(f.question | uppercase).includes(search | uppercase)" style="border: 0" class="list-group-item">
-                    <a href="{{!search?f.answer:(f.question | uppercase).includes(search | uppercase)?f.answer:''}}" class="font-list-item-title" >
-                        <span class="mr-2"><i class="fa fa-plus"></i></span>
-                        <span class="hihi">{{!search?f.question:(f.question | uppercase).includes(search | uppercase)?f.question:''}}</span>
-                    </a>
-                </li>
+                <div ng-repeat="f in faqs" ng-if="!search || search&&(f.question | uppercase).includes(search | uppercase)">
+                    <li style="border: 0" class="list-group-item">
+                        <a ng-click="toggleAns(f.id)" href="" class="font-list-item-title" >
+                            <span class="mr-2"><i class="fa fa-plus"></i></span>
+                            <span class="hihi">{{!search?f.question:(f.question | uppercase).includes(search | uppercase)?f.question:''}}</span>
+                        </a>
+                    </li>
+                    <p id="{{f.id}}" hidden class="font-list-item-title faq-answer">{{f.answer}}</p>
+                </div>
             </ul>
         </div>
     </div>

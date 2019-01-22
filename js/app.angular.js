@@ -200,19 +200,25 @@ app.controller("detailCompCtrl", function ($scope) {
 app.controller("faqCtrl", function ($scope) {
     $scope.faqs = [
         {
+            "id": 1,
             "question" : "Are u gay?",
             "answer" : "http://content.sweetim.com/sim/cpie/emoticons/0002011A.gif"
         },
         {
+            "id": 2,
             "question" : "Do u like jav?",
             "answer" : "http://javhd.pro/"
         },
         {
+            "id": 3,
             "question" : "what can i help u?",
             "answer" : "http://www.lmao.com/"
         }
     ];
     $scope.search = null;
+    $scope.toggleAns = function (e) {
+        document.getElementById(e).hidden = !document.getElementById(e).hidden;
+    }
 });
 
 //register controller
