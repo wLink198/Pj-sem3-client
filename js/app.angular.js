@@ -44,10 +44,10 @@ app.config(function($routeProvider) {
 //index controller
 app.controller("indexCtrl", function ($scope, $location, $http) {
     if (!Cookies.get('access-token') && !sessionStorage.accessToken) {
-        swal.fire(
-            'Please login!',
-            'You need to login to see the page content',
-            'warning'
+        Swal.fire(
+          'Good job!',
+          'You clicked the button!',
+          'success'
         );
         $location.path('/login')
     }
