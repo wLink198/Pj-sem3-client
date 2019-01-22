@@ -45,9 +45,9 @@ app.config(function($routeProvider) {
 app.controller("indexCtrl", function ($scope, $location, $http) {
     if (!Cookies.get('access-token') && !sessionStorage.accessToken) {
         Swal.fire(
-          'Good job!',
-          'You clicked the button!',
-          'success'
+            'Please login!',
+            'You need to login to see the page content',
+            'warning'
         );
         $location.path('/login')
     }
@@ -101,7 +101,7 @@ app.controller("indexCtrl", function ($scope, $location, $http) {
 //survey controller
 app.controller("surveyCtrl", function ($scope, $location, $http) {
     // if (!Cookies.get('access-token') && !sessionStorage.accessToken) {
-    //     Swal(
+    //     Swal.fire(
     //         'Please login!',
     //         'You need to login to see the page content',
     //         'warning'
@@ -180,7 +180,7 @@ app.controller("detailSurCtrl", function ($scope, $location) {
 //competition controller
 app.controller("competitionCtrl", function ($scope, $location) {
     // if (!Cookies.get('access-token') && !sessionStorage.accessToken) {
-    //     Swal(
+    //     Swal.fire(
     //         'Please login!',
     //         'You need to login to see the page content',
     //         'warning'
@@ -250,7 +250,7 @@ app.controller("registerCtrl", function ($scope, $http, $location) {
                 url: 'https://projectsurvey20190121095848.azurewebsites.net/api/register',
                 data: $scope.member
             }).then(function successCallback(response) {
-                Swal(
+                Swal.fire(
                     'Register successfully!',
                     'Please check your email when accepted.',
                     'success'
@@ -299,7 +299,7 @@ app.controller('loginCtrl', function($scope, $http, $location) {
                     sessionStorage.username = response.data.data.username;
                 }
             }, function errorCallback(response) {
-                Swal(
+                Swal.fire(
                     'Login fail!',
                     response.data.message,
                     'error'
