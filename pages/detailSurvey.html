@@ -8,58 +8,31 @@
     </div>
 </div>
 
-<div class="container mt-2">
+<div class="container mt-4">
     <div class="row">
         <div class="col-md-12">
-            <form action="#" method="Post">
-                <div class="row mb-4">
-                    <!-- <div class="col-md-12">
-                        <div >
-                          <h3 class="title-input pl-3" style="border-radius: 20px 20px 0px 0px;">
-                            <span style="color:#00c2a4">1.Quý khách đã mở tài khoản</span>
-                          </h3>
-                        </div>
-                        <div style="background: #fff;" class="box-list col-md-12 p-0" >
-                            <div class="col-md-12 pt-2 pb-2">
-                                <ul class="list-group list-group-flush">
-                                   <li style="border: 0" class="list-group-item">
-                                       <input type="radio" name="haha" value="Dưới 3 tháng">
-                                       <span class="ml-2">hihi</span>
-                                   </li>
-                                   <li style="border: 0" class="list-group-item">
-                                       <input type="radio" name="haha" value="Dưới 3 tháng">Dưới 3 tháng
-                                   </li>
-                                   <li style="border: 0" class="list-group-item">
-                                       <input type="radio" name="haha" value="Dưới 3 tháng">Dưới 3 tháng
-                                   </li>
-                                   <li style="border: 0" class="list-group-item">
-                                       <input type="radio" name="haha" value="Dưới 3 tháng">Dưới 3 tháng
-                                   </li>
-                                </ul>
+            <form name="sdform" method="Post">
+                <div ng-repeat="q in questions" class="row mb-4">
+                    <div class="col-md-12">
+                        <div>
+                            <div class="title-input pl-3">
+                                <pre style="color:#00c2a4">{{$index+1}}. {{q.QuestionText.replace("?","?\n")}}</pre>
                             </div>
                         </div>
-                    </div> -->
-                    <div class="col-md-12">
-                        <div >
-                            <h3 class="title-input pl-3">
-                                <span style="color:#00c2a4">1.Quý khách đã mở tài khoản</span>
-                            </h3>
-                        </div>
-                        <div style="background: #fff;" class="box-list col-md-12 p-0" >
+                        <div style="background: #fff;" class="box-list col-md-12 p-0">
                             <div class="col-md-12 pt-2 pb-2">
                                 <ul class="list-group list-group-flush">
                                     <li style="border: 0" class="list-group-item">
-                                        <input type="radio" name="haha" value="Chào em!">
-                                        <span class="ml-2">hihi</span>
+                                        <input class="mr-2" type="radio" name="{{q.SurveyId}}" value="A" required>A
                                     </li>
                                     <li style="border: 0" class="list-group-item">
-                                        <input class="mr-2" type="radio" name="haha" value="Chào anh!">Dưới 3 tháng
+                                        <input class="mr-2" type="radio" name="{{q.SurveyId}}" value="B">B
                                     </li>
                                     <li style="border: 0" class="list-group-item">
-                                        <input type="radio" name="haha" value="Chào bạn!">Dưới 3 tháng
+                                        <input class="mr-2" type="radio" name="{{q.SurveyId}}" value="C">C
                                     </li>
                                     <li style="border: 0" class="list-group-item">
-                                        <input type="radio" name="haha" value="Chào cậu!">Dưới 3 tháng
+                                        <input class="mr-2" type="radio" name="{{q.SurveyId}}" value="D">D
                                     </li>
                                 </ul>
                             </div>
@@ -70,8 +43,8 @@
                 <div class="row mb-4">
                     <div class="col-md-12">
                         <div class="text-center">
-                            <input onclick="sbm()" type="button" name="submit"  class="submit font-weight-bold border rounded text-white mr-3" value="Submit">
-                            <input type="button" name="reset" class="reset bg-danger font-weight-bold border rounded text-white ml-3" value="Reset">
+                            <input ng-click="sbm()" type="submit" name="submit"  class="submit font-weight-bold border rounded text-white mr-3" value="Submit">
+                            <input type="reset" name="reset" class="reset bg-danger font-weight-bold border rounded text-white ml-3" value="Reset">
                         </div>
                     </div>
                 </div>

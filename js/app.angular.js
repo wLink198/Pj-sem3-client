@@ -6,7 +6,8 @@ app.config(function($routeProvider) {
             controller: "indexCtrl"
         })
         .when("/detail-survey", {
-            templateUrl : "pages/detailSurvey.html"
+            templateUrl : "pages/detailSurvey.html",
+            controller: "detailSurCtrl"
         })
         .when("/detail-competition", {
             templateUrl : "pages/detailCompetition.html",
@@ -146,6 +147,36 @@ app.controller("surveyCtrl", function ($scope, $location, $http) {
     ]
 });
 
+//survey detail controller
+app.controller("detailSurCtrl", function ($scope, $location) {
+    $scope.questions = [
+        {
+            "QuestionText":"Ngày 20 tháng 11 là ngày kỷ niệm nhà giáo Việt Nam. Nước Mỹ có ngày 20 tháng 11 hay không?A. Có         B.Không",
+            "SurveyId":"1",
+            "Answer":"A"
+        },
+        {
+            "QuestionText":"Ngày 20 tháng 11 là ngày kỷ niệm nhà giáo Việt Nam. Nước Mỹ có ngày 20 tháng 11 hay không?A. Có         B.Không         C.GG         D.WP",
+            "SurveyId":"2",
+            "Answer":"B"
+        }
+    ];
+
+    $scope.sbm = function () {
+        var j = jQuery.noConflict();
+        // console.log(  j("input[name='" + $scope.questions[1].SurveyId + "']:checked").val()  );
+        if (j("input[type='radio']:checked").length === $scope.questions.length){
+            var point = 0;
+            for (var i=0; i<j("input[type='radio']:checked").length; i++) {
+                if (j("input[name='" + $scope.questions[i].SurveyId + "']:checked").val()===$scope.questions[i].Answer) {
+                    point++
+                }
+            }
+            alert(point)
+        }
+    }
+});
+
 //competition controller
 app.controller("competitionCtrl", function ($scope, $location) {
     // if (!Cookies.get('access-token') && !sessionStorage.accessToken) {
@@ -210,7 +241,7 @@ app.controller("registerCtrl", function ($scope, $http, $location) {
         if ($scope.lrform.$valid) {
             $http({
                 method: 'POST',
-                url: 'https://projectsurvey20190107023309.azurewebsites.net/api/register',
+                url: 'https://projectsurvey20190121095848.azurewebsites.net/api/register',
                 data: $scope.member
             }).then(function successCallback(response) {
                 Swal(
@@ -250,7 +281,7 @@ app.controller('loginCtrl', function($scope, $http, $location) {
         if ($scope.loginform.$valid) {
             $http({
                 method: 'POST',
-                url: 'https://projectsurvey20190107023309.azurewebsites.net/api/login',
+                url: 'https://projectsurvey20190121095848.azurewebsites.net/api/login',
                 data: $scope.memberL
             }).then(function successCallback(response) {
                 if ($scope.rmbme === true) {
