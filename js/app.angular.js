@@ -118,7 +118,7 @@ app.controller("indexCtrl", function ($scope, $location, $http) {
         console.log(response)
     });
 
-    $scope.checklogin = function (id) {
+    $scope.checklogin = function (id, type) {
         if (!Cookies.get('access-token') && !sessionStorage.accessToken) {
             Swal.fire(
                 'Please login!',
@@ -128,7 +128,12 @@ app.controller("indexCtrl", function ($scope, $location, $http) {
             $location.path('/login')
         }
         else {
-            $location.path('/detail-survey/' + id);
+            if (type === 'survey') {
+                $location.path('/detail-survey/' + id);
+            }
+            if (type === 'competition') {
+                $location.path('/detail-competition/' + id);
+            }
         }
     }
 });
@@ -296,7 +301,7 @@ app.controller("detailCompCtrl", function ($scope, $http) {
         url: "https://projectsurvey20190122034118.azurewebsites.net/api/competions/" + window.location.href.split("detail-competition/")[1],
     }).then(function successCallback(response) {
         $scope.competition = response.data;
-        document.getElementById("detail-comp-banner").style.background = "url('" + response.data.bigImage + "') no-repeat center";
+        document.getElementById("detail-comp-banner").style.background = "#fff url('" + response.data.bigImage + "') no-repeat center";
         document.getElementById("title-competition").style.background = "#FFFFFF url('" + response.data.smallImage + "') no-repeat center";
     }, function errorCallback(response) {
         console.log(response)
