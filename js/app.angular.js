@@ -140,14 +140,14 @@ app.controller("indexCtrl", function ($scope, $location, $http) {
 
 //survey controller
 app.controller("surveyCtrl", function ($scope, $location, $http) {
-    // if (!Cookies.get('access-token') && !sessionStorage.accessToken) {
-    //     Swal.fire(
-    //         'Please login!',
-    //         'You need to login to see the page content',
-    //         'warning'
-    //     );
-    //     $location.path('/login')
-    // }
+    if (!Cookies.get('access-token') && !sessionStorage.accessToken) {
+        Swal.fire(
+            'Please login!',
+            'You need to login to see the page content',
+            'warning'
+        );
+        $location.path('/login')
+    }
     var auth = "";
     if (Cookies.get('access-token')) {
         auth = Cookies.get('access-token')
@@ -187,6 +187,14 @@ app.controller("surveyCtrl", function ($scope, $location, $http) {
 
 //survey detail controller
 app.controller("detailSurCtrl", function ($scope, $location, $http) {
+    if (!Cookies.get('access-token') && !sessionStorage.accessToken) {
+        Swal.fire(
+            'Please login!',
+            'You need to login to see the page content',
+            'warning'
+        );
+        $location.path('/login')
+    }
     if (window.location.href.split("?page=")[1]) {
         window.location.href = window.location.href.replace("?page=" + window.location.href.split("?page=")[1], "")
     }
@@ -257,14 +265,14 @@ app.controller("detailSurCtrl", function ($scope, $location, $http) {
 
 //competition controller
 app.controller("competitionCtrl", function ($scope, $location, $http) {
-    // if (!Cookies.get('access-token') && !sessionStorage.accessToken) {
-    //     Swal.fire(
-    //         'Please login!',
-    //         'You need to login to see the page content',
-    //         'warning'
-    //     );
-    //     $location.path('/login')
-    // }
+    if (!Cookies.get('access-token') && !sessionStorage.accessToken) {
+        Swal.fire(
+            'Please login!',
+            'You need to login to see the page content',
+            'warning'
+        );
+        $location.path('/login')
+    }
     $scope.competitions = [];
     $http({
         method: 'GET',
@@ -292,7 +300,15 @@ app.controller("competitionCtrl", function ($scope, $location, $http) {
 });
 
 //competition detail controller
-app.controller("detailCompCtrl", function ($scope, $http) {
+app.controller("detailCompCtrl", function ($scope, $http, $location) {
+    if (!Cookies.get('access-token') && !sessionStorage.accessToken) {
+        Swal.fire(
+            'Please login!',
+            'You need to login to see the page content',
+            'warning'
+        );
+        $location.path('/login')
+    }
     $scope.active = 1;
     $scope.competition = [];
 
@@ -328,7 +344,15 @@ app.controller("faqCtrl", function ($scope, $http) {
 });
 
 //effective participation controller
-app.controller("epCtrl", function ($scope) {
+app.controller("epCtrl", function ($scope, $location) {
+    if (!Cookies.get('access-token') && !sessionStorage.accessToken) {
+        Swal.fire(
+            'Please login!',
+            'You need to login to see the page content',
+            'warning'
+        );
+        $location.path('/login')
+    }
     $scope.questions = [
         {
             "QuestionText":"What are the seminars conducted by this survey admin?",
@@ -350,7 +374,14 @@ app.controller("epCtrl", function ($scope) {
             "QuestionText":"Who is Emiri Suzuhara?",
             "QuestionId":"5"
         }
-    ]
+    ];
+    $scope.sbm = function () {
+        Swal.fire(
+            'Submit successfully!',
+            'Your answers will improve our service.',
+            'success'
+        );
+    }
 });
 
 //register controller
