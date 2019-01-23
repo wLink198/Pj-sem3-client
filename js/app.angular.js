@@ -10,7 +10,7 @@ app.config(function($routeProvider) {
             templateUrl : "pages/detailSurvey.html",
             controller: "detailSurCtrl"
         })
-        .when("/detail-competition", {
+        .when("/detail-competition/:id", {
             templateUrl : "pages/detailCompetition.html",
             controller: "detailCompCtrl"
         })
@@ -45,7 +45,7 @@ app.config(function($routeProvider) {
 
 //index controller
 app.controller("indexCtrl", function ($scope, $location, $http) {
-    var url = ""; var auth = "";
+    var url = ""; var auth = ""; var userId;
     if (!Cookies.get('access-token') && !sessionStorage.accessToken) {
         url = "https://projectsurvey20190122034118.azurewebsites.net/api/Surveys";
     }
@@ -58,6 +58,12 @@ app.controller("indexCtrl", function ($scope, $location, $http) {
             auth = sessionStorage.accessToken
         }
     }
+    if (Cookies.get('userId')) {
+        userId = Cookies.get('userId')
+    }
+    if (sessionStorage.userId) {
+        userId = sessionStorage.userId
+    }
 
     var q = new Date();
     var m = q.getMonth();
@@ -65,6 +71,7 @@ app.controller("indexCtrl", function ($scope, $location, $http) {
     var y = q.getFullYear();
     var date = new Date(y,m,d);
     $scope.std = 0;
+    $scope.hasP = 0;
     $scope.surveys = [];
     if (Cookies.get('access-token'))  {
         var auth = Cookies.get('access-token');
@@ -99,6 +106,14 @@ app.controller("indexCtrl", function ($scope, $location, $http) {
         url: "https://projectsurvey20190122034118.azurewebsites.net/api/competions",
     }).then(function successCallback(response) {
         $scope.competitions = response.data;
+    }, function errorCallback(response) {
+        console.log(response)
+    });
+    $http({
+        method: 'GET',
+        url: "https://projectsurvey20190122034118.azurewebsites.net/api/points/users/" + userId,
+    }).then(function successCallback(response) {
+        $scope.hasP = response.data.length;
     }, function errorCallback(response) {
         console.log(response)
     });
@@ -143,6 +158,7 @@ app.controller("surveyCtrl", function ($scope, $location, $http) {
             'Authorization': 'Bearer ' + auth
         },
     }).then(function successCallback(response) {
+        // console.log(response);
         $scope.totalPage = Math.ceil(response.data.length/6);
         $scope.is = [];
         for (var i= 1; i<=$scope.totalPage; i++) {
@@ -150,10 +166,11 @@ app.controller("surveyCtrl", function ($scope, $location, $http) {
         }
         if (window.location.href.split("?page=")[1]) {
             $scope.page = parseInt(window.location.href.split("?page=")[1]);
+            $scope.surveys = [];
         }
         else {$scope.page = 1}
-        for (var j=($scope.page-1)*6; j<$scope.page*6; j++) {
-            $scope.surveys.push(response.data[j])
+        for (var j=($scope.page-1)*6; j<$scope.page*6 && j<response.data.length; j++) {
+            $scope.surveys.push(response.data[j]);
         }
     }, function errorCallback(response) {
         console.log(response)
@@ -168,15 +185,6 @@ app.controller("detailSurCtrl", function ($scope, $location, $http) {
     if (window.location.href.split("?page=")[1]) {
         window.location.href = window.location.href.replace("?page=" + window.location.href.split("?page=")[1], "")
     }
-    $http({
-        method: 'GET',
-        url: "https://projectsurvey20190122034118.azurewebsites.net/api/Questions/Surveys/" + window.location.href.split("detail-survey/")[1],
-    }).then(function successCallback(response) {
-        // console.log(response);
-        $scope.questions = response.data;
-    }, function errorCallback(response) {
-        console.log(response)
-    });
     var userId;
     if (Cookies.get('userId')) {
         userId = Cookies.get('userId')
@@ -184,40 +192,66 @@ app.controller("detailSurCtrl", function ($scope, $location, $http) {
     if (sessionStorage.userId) {
         userId = sessionStorage.userId
     }
-    $scope.sbm = function () {
-        if (j("input[type='radio']:checked").length === $scope.questions.length){
-            var point = 0;
-            for (var i=0; i<j("input[type='radio']:checked").length; i++) {
-                if (j("input[name='" + $scope.questions[i].id + "']:checked").val()===$scope.questions[i].answer) {
-                    point++
-                }
-            }
+    $http({
+        method: 'GET',
+        url: "https://projectsurvey20190122034118.azurewebsites.net/api/Questions/users/" + userId + "/Surveys/" + window.location.href.split("detail-survey/")[1],
+    }).then(function successCallback(response) {
+        if (response.data.length === 0) {
             $http({
-                method: 'POST',
-                url: "https://projectsurvey20190122034118.azurewebsites.net/api/points",
-                data: {
-                    "UserId": userId,
-                    "SurveyId": parseInt(window.location.href.split("detail-survey/")[1]),
-                    "TotalScore": point
-                }
+                method: 'GET',
+                url: "https://projectsurvey20190122034118.azurewebsites.net/api/Questions/Surveys/" + window.location.href.split("detail-survey/")[1],
             }).then(function successCallback(response) {
-                Swal.fire(
-                    'Successfully!',
-                    'Your point is: ' + point,
-                    'success'
-                );
+                // console.log(response);
+                $scope.questions = response.data;
             }, function errorCallback(response) {
                 console.log(response)
             });
+
+            $scope.sbm = function () {
+                if (j("input[type='radio']:checked").length === $scope.questions.length){
+                    var point = 0;
+                    for (var i=0; i<j("input[type='radio']:checked").length; i++) {
+                        if (j("input[name='" + $scope.questions[i].id + "']:checked").val()===$scope.questions[i].answer) {
+                            point++
+                        }
+                    }
+                    $http({
+                        method: 'POST',
+                        url: "https://projectsurvey20190122034118.azurewebsites.net/api/points",
+                        data: {
+                            "UserId": userId,
+                            "SurveyId": parseInt(window.location.href.split("detail-survey/")[1]),
+                            "TotalScore": point
+                        }
+                    }).then(function successCallback(response) {
+                        Swal.fire({
+                                title: "Successfully!",
+                                text: "Your score: " + point,
+                                type: "success",
+                                confirmButtonText: 'OK'
+                            }).then(
+                            function () { location.reload() },
+                            function () { return false; });
+                    }, function errorCallback(response) {
+                        console.log(response)
+                    });
+                }
+                else {
+                    alert("Nào k troll")
+                }
+            }
         }
         else {
-            alert("Nào k troll")
+            $scope.alrSbm = "You have already submitted this survey."
         }
-    }
+    }, function errorCallback(response) {
+        console.log(response)
+    });
+
 });
 
 //competition controller
-app.controller("competitionCtrl", function ($scope, $location) {
+app.controller("competitionCtrl", function ($scope, $location, $http) {
     // if (!Cookies.get('access-token') && !sessionStorage.accessToken) {
     //     Swal.fire(
     //         'Please login!',
@@ -226,34 +260,62 @@ app.controller("competitionCtrl", function ($scope, $location) {
     //     );
     //     $location.path('/login')
     // }
-
+    $scope.competitions = [];
+    $http({
+        method: 'GET',
+        url: "https://projectsurvey20190122034118.azurewebsites.net/api/competions",
+    }).then(function successCallback(response) {
+        $scope.totalPage = Math.ceil(response.data.length/6);
+        $scope.is = [];
+        for (var i= 1; i<=$scope.totalPage; i++) {
+            $scope.is.push(i)
+        }
+        if (window.location.href.split("?page=")[1]) {
+            $scope.page = parseInt(window.location.href.split("?page=")[1]);
+            $scope.competitions = [];
+        }
+        else {$scope.page = 1}
+        for (var j=($scope.page-1)*6; j<$scope.page*6 && j<response.data.length; j++) {
+            $scope.competitions.push(response.data[j]);
+        }
+    }, function errorCallback(response) {
+        console.log(response)
+    });
+    $scope.detailS = function (id) {
+        $location.path('/detail-competition/' + id);
+    }
 });
 
 //competition detail controller
-app.controller("detailCompCtrl", function ($scope) {
+app.controller("detailCompCtrl", function ($scope, $http) {
     $scope.active = 1;
+    $scope.competition = [];
 
+    $http({
+        method: 'GET',
+        url: "https://projectsurvey20190122034118.azurewebsites.net/api/competions/" + window.location.href.split("detail-competition/")[1],
+    }).then(function successCallback(response) {
+        $scope.competition = response.data;
+        document.getElementById("detail-comp-banner").style.background = "url('" + response.data.bigImage + "') no-repeat center";
+        document.getElementById("title-competition").style.background = "#FFFFFF url('" + response.data.smallImage + "') no-repeat center";
+    }, function errorCallback(response) {
+        console.log(response)
+    });
 });
 
 //FAQ controller
-app.controller("faqCtrl", function ($scope) {
-    $scope.faqs = [
-        {
-            "id": 1,
-            "question" : "Are u gay?",
-            "answer" : "http://content.sweetim.com/sim/cpie/emoticons/0002011A.gif"
-        },
-        {
-            "id": 2,
-            "question" : "Do u like jav?",
-            "answer" : "http://javhd.pro/"
-        },
-        {
-            "id": 3,
-            "question" : "what can i help u?",
-            "answer" : "http://www.lmao.com/"
-        }
-    ];
+app.controller("faqCtrl", function ($scope, $http) {
+    $scope.faqs = [];
+    $http({
+        method: 'GET',
+        url: "https://projectsurvey20190122034118.azurewebsites.net/api/faqs",
+    }).then(function successCallback(response) {
+        // console.log(response);
+        $scope.faqs = response.data;
+    }, function errorCallback(response) {
+        console.log(response)
+    });
+
     $scope.search = null;
     $scope.toggleAns = function (e) {
         document.getElementById(e).hidden = !document.getElementById(e).hidden;

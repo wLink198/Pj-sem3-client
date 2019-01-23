@@ -3,7 +3,7 @@
 <div class="row" id="title-header-detail">
     <div class="col-md-12">
         <div class="title-header-detail">
-            <h3 style="height: 70px; line-height: 50px" class="pt-2 pb-2 text-white font-weight-normal text-capitalize text-center"></h3>
+            <h3 style="height: 70px; line-height: 50px" class="pt-2 pb-2 text-white font-weight-normal text-capitalize text-center">{{questions[0].survey.title}}</h3>
         </div>
     </div>
 </div>
@@ -11,12 +11,13 @@
 <div class="container mt-4">
     <div class="row">
         <div class="col-md-12">
-            <form name="sdform" method="Post">
+            <div ng-if="alrSbm">{{alrSbm}}</div>
+            <form ng-if="!alrSbm" name="sdform" method="Post">
                 <div ng-repeat="q in questions" class="row mb-4">
                     <div class="col-md-12">
                         <div>
                             <div class="title-input pl-3">
-                                <pre style="color:#00c2a4">{{$index+1}}. {{q.questionText.replace("A.","\nA.").replace("B.","\nB.").replace("C.","\nC.").replace("D.","\nD.")}}</pre>
+                                <pre style="color:#00c2a4; white-space: pre-line">{{$index+1}}. {{q.questionText.replace("A.","\nA.").replace("B.","\nB.").replace("C.","\nC.").replace("D.","\nD.")}}</pre>
                             </div>
                         </div>
                         <div style="background: #fff;" class="box-list col-md-12 p-0">

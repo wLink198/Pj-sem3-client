@@ -3,56 +3,15 @@
 <div class="index-content">
     <h4 class="competitions-title">Competitions</h4>
     <div class="container">
-        <div class="card-deck mt-5">
-            <div class="card">
-                <img class="card-img-top" src="..." alt="Card image cap">
-                <div class="card-body">
-                    <h5 class="card-title">Card title</h5>
-                    <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                    <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-                </div>
-            </div>
-            <div class="card">
-                <img class="card-img-top" src="..." alt="Card image cap">
-                <div class="card-body">
-                    <h5 class="card-title">Card title</h5>
-                    <p class="card-text">This card has supporting text below as a natural lead-in to additional content.</p>
-                    <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-                </div>
-            </div>
-            <div class="card">
-                <img class="card-img-top" src="..." alt="Card image cap">
-                <div class="card-body">
-                    <h5 class="card-title">Card title</h5>
-                    <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This card has even longer content than the first to show that equal height action.</p>
-                    <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-                </div>
-            </div>
-        </div>
-
-        <div class="card-deck mt-5">
-            <div class="card">
-                <img class="card-img-top" src="..." alt="Card image cap">
-                <div class="card-body">
-                    <h5 class="card-title">Card title</h5>
-                    <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                    <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-                </div>
-            </div>
-            <div class="card">
-                <img class="card-img-top" src="..." alt="Card image cap">
-                <div class="card-body">
-                    <h5 class="card-title">Card title</h5>
-                    <p class="card-text">This card has supporting text below as a natural lead-in to additional content.</p>
-                    <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-                </div>
-            </div>
-            <div class="card">
-                <img class="card-img-top" src="..." alt="Card image cap">
-                <div class="card-body">
-                    <h5 class="card-title">Card title</h5>
-                    <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This card has even longer content than the first to show that equal height action.</p>
-                    <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+        <div class="card-deck">
+            <div class="card mt-5" ng-repeat="s in competitions" style="min-width: 25%; max-width: 33%">
+                <img style="max-height: 280px" class="card-img-top" src="{{s.smallImage}}" alt="Card image cap">
+                <div class="card-body" style="position: relative">
+                    <h5 class="card-title">{{s.title}}</h5>
+                    <p class="card-text">{{s.description}}</p><br><br>
+                    <button ng-click="detailS(s.id)" type="button" class="btn btn-primary" style="position: absolute; bottom: 20px; right: 25px">
+                        <a style="color: white" href="#">Detail &raquo;</a>
+                    </button>
                 </div>
             </div>
         </div>
@@ -60,16 +19,14 @@
         <!-- paginate -->
         <nav style="margin-bottom: 200px" aria-label="...">
             <ul class="pagination myPaginate mt-5">
-                <li class="page-item disabled">
-                    <a class="page-link" href="#" tabindex="-1">Previous</a>
+                <li ng-class="page==1?'page-item disabled':'page-item'">
+                    <a class="page-link" href="#!survey?page={{page-1}}" tabindex="-1">Previous</a>
                 </li>
-                <li class="page-item"><a class="page-link" href="#">1</a></li>
-                <li class="page-item active">
-                    <a class="page-link" href="#">2 <span class="sr-only">(current)</span></a>
+                <li ng-repeat="i in is" ng-class="page==i?'page-item active':'page-item'">
+                    <a class="page-link" href="#!survey?page={{i}}">{{i}} <span ng-if="page==1" class="sr-only">(current)</span></a>
                 </li>
-                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                <li class="page-item">
-                    <a class="page-link" href="#">Next</a>
+                <li ng-class="page==totalPage?'page-item disabled':'page-item'">
+                    <a class="page-link" href="#!survey?page={{page+1}}">Next</a>
                 </li>
             </ul>
         </nav>

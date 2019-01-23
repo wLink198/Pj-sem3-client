@@ -1,44 +1,42 @@
-<div class="container-fluid banner-top mt-5" >
+<div id="detail-comp-banner" class="container-fluid banner-top mt-5">
 </div>
 <div class="container mb-5">
     <div class="row">
         <div class="col-md-4 mt-3 ">
             <div id="title-competition" class="mb-2">
-
             </div>
             <div>
                 <p>
                     <strong >
-                        <i class="fa fa-graduation-cap" aria-hidden="true"></i>Ages:
+                        <i class="fa fa-graduation-cap" aria-hidden="true"></i>Organizer:
                     </strong>
-                    <span>Middle School</span>
+                    <span>{{competition.organizer}}</span>
                 </p>
-                <p><strong><i class="fa fa-trophy" aria-hidden="true"></i>Types:</strong><span>Submission, Presentation</span></p>
-                <p><strong><i class="fa fa-folder-open" aria-hidden="true"></i>Categories:</strong><span>Art, Environment, General Knowledge, STEM</span></p>
-                <p><strong><i class="fa fa-flag" aria-hidden="true"></i>Scope:</strong><span>National</span></p>
+                <p><strong><i class="fa fa-trophy" aria-hidden="true"></i>Types: </strong><span>Submission, Presentation</span></p>
+                <p><strong><i class="fa fa-folder-open" aria-hidden="true"></i>Time: </strong><span>{{competition.inTime}}</span></p>
             </div>
         </div>
         <div class="col-md-8">
             <div class=" mt-5 mb-3">
-                <h3 class="text-capitalize">Competition Detail</h3>
+                <h3 class="text-capitalize">{{competition.title}}</h3>
             </div>
             <div class="list-view rounded" style="border: 1px solid #ddd">
                 <nav>
                     <div id="nav-tab" class="nav nav-tabs" role="tablist" style="background: #ddd" >
-                        <a ng-click="active=1" class="nav-item nav-link active" style="color: #222; font-weight: 500" id="nav-home-tab" data-toggle="tab" href="/detail-competition#nav-home" role="tab" aria-controls="nav-home" aria-selected="true" >Home</a>
-                        <a ng-click="active=2" class="nav-item nav-link" style="color: #222; font-weight: 500" id="nav-profile-tab" data-toggle="tab" href="/detail-competition#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Profile</a>
-                        <a ng-click="active=3" class="nav-item nav-link" style="color: #222; font-weight: 500" id="nav-contact-tab" data-toggle="tab" href="/detail-competition#nav-contact" role="tab" aria-controls="nav-contact" aria-selected="false">Contact</a>
+                        <a ng-click="active=1" class="nav-item nav-link active" style="color: #222; font-weight: 500" id="nav-home-tab" data-toggle="tab" href="/detail-competition#nav-home" role="tab" aria-controls="nav-home" aria-selected="true" >Description</a>
+                        <a ng-click="active=2" class="nav-item nav-link" style="color: #222; font-weight: 500" id="nav-profile-tab" data-toggle="tab" href="/detail-competition#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Location</a>
+                        <a ng-click="active=3" class="nav-item nav-link" style="color: #222; font-weight: 500" id="nav-contact-tab" data-toggle="tab" href="/detail-competition#nav-contact" role="tab" aria-controls="nav-contact" aria-selected="false">Link</a>
                     </div>
                 </nav>
-                <div class="tab-content p-4" id="nav-tabContent">
+                <div class="tab-content p-4" id="nav-tabContent" style="background: #fff">
                     <div ng-class="active==1?'tab-pane fade show active':'tab-pane fade'" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
-                        abcd
+                        {{competition.description}}
                     </div>
                     <div ng-class="active==2?'tab-pane fade show active':'tab-pane fade'" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
-                        vkcl
+                        {{competition.address}}
                     </div>
                     <div ng-class="active==3?'tab-pane fade show active':'tab-pane fade'" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
-                        ggwp
+                        {{competition.link}}
                     </div>
                 </div>
             </div>
