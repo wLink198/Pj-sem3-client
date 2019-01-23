@@ -8,7 +8,7 @@
                 <label class="custom-control-label oLabel" for="customRadio1">Student</label>
             </div>
             <div class="custom-control custom-radio col-md-9 offset-3 mb-3">
-                <input ng-click="member.job='Faculty and staff'" type="radio" id="customRadio2" name="customRadio" class="custom-control-input">
+                <input ng-click="member.job='Employee'" type="radio" id="customRadio2" name="customRadio" class="custom-control-input">
                 <label class="custom-control-label oLabel" for="customRadio2">Faculty and staff</label>
             </div>
 
@@ -71,7 +71,7 @@
                 </span>
                 </div>
 
-                <div ng-if="member.job=='Faculty and staff'" class="col-md-10 offset-1 wrap-inputLr">
+                <div ng-if="member.job=='Employee'" class="col-md-10 offset-1 wrap-inputLr">
                     <input ng-model="member.seciton" class="inputLr" type="text" name="section" placeholder="Section" required>
                     <span class="focus-inputLr"></span>
                     <span class="symbol-inputLr">
