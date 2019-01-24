@@ -45,6 +45,7 @@ app.config(function($routeProvider) {
 
 //index controller
 app.controller("indexCtrl", function ($scope, $location, $http) {
+    window.scrollTo(0, 0);
     var url = ""; var auth = ""; var userId;
     if (!Cookies.get('access-token') && !sessionStorage.accessToken) {
         url = "https://projectsurvey20190122034118.azurewebsites.net/api/Surveys";
@@ -72,7 +73,7 @@ app.controller("indexCtrl", function ($scope, $location, $http) {
     var date = new Date(y,m,d);
     $scope.std = 0;
     $scope.hasP = 0;
-    $scope.surveys = [];
+    $scope.surveys = []; $scope.competitions = [];
     if (Cookies.get('access-token'))  {
         var auth = Cookies.get('access-token');
     }
@@ -105,7 +106,16 @@ app.controller("indexCtrl", function ($scope, $location, $http) {
         method: 'GET',
         url: "https://projectsurvey20190122034118.azurewebsites.net/api/competions",
     }).then(function successCallback(response) {
-        $scope.competitions = response.data;
+        $scope.competitionsAll = response.data;
+        if ($scope.competitionsAll.length > 6) {
+            for (var i=0; i<6; i++) {
+                $scope.competitions.push($scope.competitionsAll[i]);
+                $scope.competitions = $scope.competitions.reverse();
+            }
+        }
+        else {
+            $scope.surveys = $scope.surveysAll
+        }
     }, function errorCallback(response) {
         console.log(response)
     });
@@ -140,6 +150,7 @@ app.controller("indexCtrl", function ($scope, $location, $http) {
 
 //survey controller
 app.controller("surveyCtrl", function ($scope, $location, $http) {
+    window.scrollTo(0, 0);
     if (!Cookies.get('access-token') && !sessionStorage.accessToken) {
         Swal.fire(
             'Please login!',
@@ -187,6 +198,7 @@ app.controller("surveyCtrl", function ($scope, $location, $http) {
 
 //survey detail controller
 app.controller("detailSurCtrl", function ($scope, $location, $http) {
+    window.scrollTo(0, 0);
     if (!Cookies.get('access-token') && !sessionStorage.accessToken) {
         Swal.fire(
             'Please login!',
@@ -265,6 +277,7 @@ app.controller("detailSurCtrl", function ($scope, $location, $http) {
 
 //competition controller
 app.controller("competitionCtrl", function ($scope, $location, $http) {
+    window.scrollTo(0, 0);
     if (!Cookies.get('access-token') && !sessionStorage.accessToken) {
         Swal.fire(
             'Please login!',
@@ -301,6 +314,7 @@ app.controller("competitionCtrl", function ($scope, $location, $http) {
 
 //competition detail controller
 app.controller("detailCompCtrl", function ($scope, $http, $location) {
+    window.scrollTo(0, 0);
     if (!Cookies.get('access-token') && !sessionStorage.accessToken) {
         Swal.fire(
             'Please login!',
@@ -326,6 +340,7 @@ app.controller("detailCompCtrl", function ($scope, $http, $location) {
 
 //FAQ controller
 app.controller("faqCtrl", function ($scope, $http) {
+    window.scrollTo(0, 0);
     $scope.faqs = [];
     $http({
         method: 'GET',
@@ -345,6 +360,7 @@ app.controller("faqCtrl", function ($scope, $http) {
 
 //effective participation controller
 app.controller("epCtrl", function ($scope, $location) {
+    window.scrollTo(0, 0);
     if (!Cookies.get('access-token') && !sessionStorage.accessToken) {
         Swal.fire(
             'Please login!',
@@ -386,6 +402,7 @@ app.controller("epCtrl", function ($scope, $location) {
 
 //register controller
 app.controller("registerCtrl", function ($scope, $http, $location) {
+    window.scrollTo(0, 0);
     if (Cookies.get('access-token')) {
         $location.path('/')
     }
@@ -433,6 +450,7 @@ app.controller("registerCtrl", function ($scope, $http, $location) {
 
 //login controller
 app.controller('loginCtrl', function($scope, $http, $location) {
+    window.scrollTo(0, 0);
     if (Cookies.get('access-token')) {
         $location.path('/')
     }

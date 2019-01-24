@@ -6,7 +6,7 @@
 	<div class="container">
 		<div class="card-deck">
 		  <div class="card mt-5" ng-repeat="s in surveys" style="min-width: 25%; max-width: 33%">
-		    <img style="max-height: 2800px" class="card-img-top" src="{{s.image}}" alt="Card image cap">
+		    <img ng-click="checklogin(s.id, 'survey')" style="max-height: 280px; cursor: pointer" class="card-img-top" src="{{s.image}}" alt="Card image cap">
 		    <div class="card-body" style="position: relative">
 		      <h5 class="card-title">{{s.title}}</h5>
 		      <p class="card-text">{{s.description}}</p><br><br>
@@ -23,7 +23,7 @@
 	<div class="container">
 		<div class="card-deck">
 		  <div class="card mt-5" ng-repeat="c in competitions" style="min-width: 25%; max-width: 33%">
-		    <img style="max-height: 280px" class="card-img-top" src="{{c.smallImage}}" alt="Card image cap">
+		    <img ng-click="checklogin(c.id, 'competition')" style="max-height: 280px; cursor: pointer" class="card-img-top" src="{{c.smallImage}}" alt="Card image cap">
 		    <div class="card-body">
 		      <h5 class="card-title">{{c.title}}</h5>
 		      <p class="card-text">{{c.description}}</p><br><br>

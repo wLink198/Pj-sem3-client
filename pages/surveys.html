@@ -5,7 +5,7 @@
     <div class="container">
         <div class="card-deck">
             <div class="card mt-5" ng-repeat="s in surveys" style="min-width: 25%; max-width: 33%">
-                <img class="card-img-top" src="{{s.image}}" alt="Card image cap">
+                <img ng-click="detailS(s.id)" style="max-height: 280px; cursor: pointer" class="card-img-top" src="{{s.image}}" alt="Card image cap">
                 <div class="card-body" style="position: relative">
                     <h5 class="card-title">{{s.title}}</h5>
                     <p class="card-text">{{s.description}}</p><br><br>
